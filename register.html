@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechTrove Registration - Register for Tech Events</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>TechTrove</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link">Home</a></li>
+                <li><a href="#" class="nav-link">Events</a></li>
+                <li><a href="#" class="nav-link active">Registration</a></li>
+                <li><a href="#" class="nav-link">Gallery</a></li>
+                <li><a href="#" class="nav-link">Team</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="scrolling-text">
+                <div class="scrolling-line">TECHTROVE REGISTRATION</div>
+            </div>
+            <p class="hero-subtitle">Join the ultimate tech festival. Register for exciting competitions and workshops.</p>
+            <a href="#events" class="btn btn--primary btn--lg">Explore Events</a>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="events-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Choose Your Event</h2>
+                <p>Select from our exciting lineup of tech competitions and workshops</p>
+            </div>
+            <div class="events-grid" id="eventsGrid">
+                <!-- Events will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Modal -->
+    <div class="modal hidden" id="registrationModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalEventTitle">Event Registration</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Step 1: Event Details -->
+                <div class="step active" id="step1">
+                    <div class="event-details">
+                        <div class="event-info">
+                            <h4 id="eventTitle"></h4>
+                            <p id="eventSubtitle"></p>
+                            <div class="event-meta">
+                                <div class="meta-item">
+                                    <strong>Date:</strong> <span id="eventDate"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <strong>Time:</strong> <span id="eventTime"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <strong>Venue:</strong> <span id="eventVenue"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <strong>Entry Fee:</strong> ₹<span id="eventFee"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form id="registrationForm" class="registration-form">
+                        <h4>Personal Details</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="fullName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">College/Institution</label>
+                                <input type="text" class="form-control" id="college" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Year of Study</label>
+                                <select class="form-control" id="yearOfStudy" required>
+                                    <option value="">Select Year</option>
+                                    <option value="1">1st Year</option>
+                                    <option value="2">2nd Year</option>
+                                    <option value="3">3rd Year</option>
+                                    <option value="4">4th Year</option>
+                                    <option value="postgrad">Post Graduate</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="teamSizeGroup" style="display: none;">
+                                <label class="form-label">Team Size</label>
+                                <select class="form-control" id="teamSize">
+                                    <!-- Options will be populated by JavaScript -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="teamMembersGroup" style="display: none;">
+                            <label class="form-label">Team Members</label>
+                            <div id="teamMembersList">
+                                <!-- Team member inputs will be added here -->
+                            </div>
+                        </div>
+                    </form>
+                    <div class="step-actions">
+                        <button type="button" class="btn btn--primary" id="proceedToPayment">Proceed to Payment</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Payment -->
+                <div class="step" id="step2">
+                    <div class="payment-summary">
+                        <h4>Payment Summary</h4>
+                        <div class="summary-item">
+                            <span>Event Fee:</span>
+                            <span id="summaryFee">₹0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Processing Fee:</span>
+                            <span>₹29</span>
+                        </div>
+                        <div class="summary-total">
+                            <span><strong>Total Amount:</strong></span>
+                            <span id="totalAmount"><strong>₹0</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="payment-methods">
+                        <h4>Select Payment Method</h4>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="card" checked>
+                                <div class="option-content">
+                                    <span class="option-icon">💳</span>
+                                    <span>Credit/Debit Card</span>
+                                </div>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="upi">
+                                <div class="option-content">
+                                    <span class="option-icon">📱</span>
+                                    <span>UPI</span>
+                                </div>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="netbanking">
+                                <div class="option-content">
+                                    <span class="option-icon">🏦</span>
+                                    <span>Net Banking</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="payment-form">
+                        <!-- Card Payment Form -->
+                        <div class="payment-fields" id="cardFields">
+                            <div class="form-group">
+                                <label class="form-label">Card Number</label>
+                                <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Expiry Date</label>
+                                    <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">CVV</label>
+                                    <input type="text" class="form-control" id="cvv" placeholder="123">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Cardholder Name</label>
+                                <input type="text" class="form-control" id="cardholderName" placeholder="John Doe">
+                            </div>
+                        </div>
+
+                        <!-- UPI Payment Form -->
+                        <div class="payment-fields hidden" id="upiFields">
+                            <div class="form-group">
+                                <label class="form-label">UPI ID</label>
+                                <input type="text" class="form-control" id="upiId" placeholder="user@paytm">
+                            </div>
+                        </div>
+
+                        <!-- Net Banking Form -->
+                        <div class="payment-fields hidden" id="netbankingFields">
+                            <div class="form-group">
+                                <label class="form-label">Select Bank</label>
+                                <select class="form-control" id="bank">
+                                    <option value="">Select Bank</option>
+                                    <option value="sbi">State Bank of India</option>
+                                    <option value="hdfc">HDFC Bank</option>
+                                    <option value="icici">ICICI Bank</option>
+                                    <option value="axis">Axis Bank</option>
+                                    <option value="pnb">Punjab National Bank</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terms-checkbox">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="agreeTerms" required>
+                            <span class="checkmark"></span>
+                            I agree to the terms and conditions and cancellation policy
+                        </label>
+                    </div>
+
+                    <div class="step-actions">
+                        <button type="button" class="btn btn--outline" id="backToDetails">Back</button>
+                        <button type="button" class="btn btn--primary" id="completePayment">Complete Payment</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Confirmation -->
+                <div class="step" id="step3">
+                    <div class="success-message">
+                        <div class="success-icon">✅</div>
+                        <h3>Registration Successful!</h3>
+                        <p>Your registration has been confirmed. Here are your details:</p>
+                        
+                        <div class="confirmation-details">
+                            <div class="detail-item">
+                                <strong>Registration ID:</strong> <span id="registrationId"></span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Event:</strong> <span id="confirmEventName"></span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Name:</strong> <span id="confirmName"></span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Email:</strong> <span id="confirmEmail"></span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Amount Paid:</strong> <span id="confirmAmount"></span>
+                            </div>
+                        </div>
+
+                        <div class="confirmation-note">
+                            <p><strong>Important:</strong> Please save your Registration ID for future reference. A confirmation email has been sent to your registered email address.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button type="button" class="btn btn--outline" id="downloadReceipt">Download Receipt</button>
+                        <button type="button" class="btn btn--primary" id="registerAnother">Register for Another Event</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner hidden" id="loadingSpinner">
+        <div class="spinner"></div>
+        <p>Processing your registration...</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
